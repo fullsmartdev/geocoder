@@ -8,9 +8,7 @@
     var HttpAdapter = require('../../lib/httpadapter/httpadapter.js');
 
     var mockedHttpAdapter = {
-        get: function() {
-          return {}
-        }
+        get: function() {}
     };
 
     describe('GoogleGeocoder', function() {
@@ -67,7 +65,7 @@
 
             it('Should return geocoded adress', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
-                mock.expects('get').once().callsArgWith(2, false, { status: "OK", results: [{
+                mock.expects('get').once().callsArgWith(2, false, { results: [{
                         geometry: {location : {
                             lat: 37.386,
                             lng: -122.0838
@@ -109,32 +107,6 @@
 
             });
 
-            it('Should handle a not "OK" status', function(done) {
-                var mock = sinon.mock(mockedHttpAdapter);
-                mock.expects('get').once().callsArgWith(2, false, { status: "OVER_QUERY_LIMIT", error_message: "You have exceeded your rate-limit for this API.", results: [] });
-
-                var googleAdapter = new GoogleGeocoder(mockedHttpAdapter);
-
-                googleAdapter.geocode('1 champs élysées Paris', function(err, results) {
-                    err.message.should.to.equal("Status is OVER_QUERY_LIMIT. You have exceeded your rate-limit for this API.");
-                    mock.verify();
-                    done();
-                });
-            });
-
-            it('Should handle a not "OK" status and no error_message', function(done) {
-                var mock = sinon.mock(mockedHttpAdapter);
-                mock.expects('get').once().callsArgWith(2, false, { status: "INVALID_REQUEST", results: [] });
-
-                var googleAdapter = new GoogleGeocoder(mockedHttpAdapter);
-
-                googleAdapter.geocode('1 champs élysées Paris', function(err, results) {
-                    err.message.should.to.equal("Status is INVALID_REQUEST.");
-                    mock.verify();
-                    done();
-                });
-            });
-
         });
 
         describe('#reverse' , function() {
@@ -153,7 +125,7 @@
 
             it('Should return geocoded adress', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
-                mock.expects('get').once().callsArgWith(2, false, { status: "OK", results: [{
+                mock.expects('get').once().callsArgWith(2, false, { results: [{
                         geometry: {location : {
                             lat: 40.714232,
                             lng: -73.9612889
@@ -190,32 +162,6 @@
                         });
                         mock.verify();
                         done();
-                });
-            });
-
-            it('Should handle a not "OK" status', function(done) {
-                var mock = sinon.mock(mockedHttpAdapter);
-                mock.expects('get').once().callsArgWith(2, false, { status: "OVER_QUERY_LIMIT", error_message: "You have exceeded your rate-limit for this API.", results: [] });
-
-                var googleAdapter = new GoogleGeocoder(mockedHttpAdapter);
-
-                googleAdapter.reverse(40.714232,-73.9612889, function(err, results) {
-                    err.message.should.to.equal("Status is OVER_QUERY_LIMIT. You have exceeded your rate-limit for this API.");
-                    mock.verify();
-                    done();
-                });
-            });
-
-            it('Should handle a not "OK" status and no error_message', function(done) {
-                var mock = sinon.mock(mockedHttpAdapter);
-                mock.expects('get').once().callsArgWith(2, false, { status: "INVALID_REQUEST", results: [] });
-
-                var googleAdapter = new GoogleGeocoder(mockedHttpAdapter);
-
-                googleAdapter.reverse(40.714232,-73.9612889, function(err, results) {
-                    err.message.should.to.equal("Status is INVALID_REQUEST.");
-                    mock.verify();
-                    done();
                 });
             });
         });
