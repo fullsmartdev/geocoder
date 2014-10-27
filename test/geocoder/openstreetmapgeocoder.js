@@ -72,7 +72,6 @@
                             country_code: 'FR',
                             country: 'France',
                             city: 'Paris',
-                            state: '',
                             postcode: "75008",
                             road: 'Champs-Élysées',
                             house_number: "1"
@@ -90,7 +89,6 @@
                         "longitude": 2.30700964746136,
                         "country": "France",
                         "city": "Paris",
-                        "state": "",
                         "zipcode": "75008",
                         "streetName": "Champs-Élysées",
                         "streetNumber": "1",
@@ -114,7 +112,6 @@
                             country_code: 'US',
                             country: 'United States',
                             city: 'Brooklyn',
-                            state: 'New York',
                             postcode: "11211",
                             road: 'Bedford Avenue',
                             house_number: "277"
@@ -128,7 +125,6 @@
                             "latitude": 40.714232,
                             "longitude": -73.9612889,
                             "country": "United States",
-                            "state": "New York",
                             "city": "Brooklyn",
                             "zipcode": "11211",
                             "streetName": "Bedford Avenue",
