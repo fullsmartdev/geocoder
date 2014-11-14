@@ -91,8 +91,3 @@
 * add extra.region to google geocoder
 * better error handling
 
-## 2.11.0
-
-* remove node 0.8 supports
-* fix open street map street name
-
