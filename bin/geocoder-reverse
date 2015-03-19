@@ -19,7 +19,7 @@ program
       process.exit(1);
     }
 
-    geocoder.reverse({lat:lat, lon:long})
+    geocoder.reverse(lat, long)
       .then(function(results) {
         console.log(results);
       }, function(err) {

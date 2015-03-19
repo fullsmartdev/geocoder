@@ -67,12 +67,12 @@ geocoder.geocode({address: '29 champs elysée', country: 'France', zipcode: '750
 // Reverse example
 
 // Using callback
-geocoder.reverse({lat:45.767, lon:4.833}, function(err, res) {
+geocoder.reverse(45.767, 4.833, function(err, res) {
     console.log(res);
 });
 
 // Or using Promise
-geocoder.reverse({lat:45.767, lon:4.833})
+geocoder.reverse(45.767, 4.833)
     .then(function(res) {
         console.log(res);
     })
@@ -95,14 +95,12 @@ geocoder.batchGeocode(['13 rue sainte catherine', 'another adress'], function (r
 * `google` : GoogleGeocoder. Supports address geocoding and reverse geocoding. Use `extra.clientId`and `extra.apiKey`(privateKey) for business licence. You can also use `extra.language` and `extra.region` to specify language and region, respectively. Note that 'https' is required when using an apiKey
 * `freegeoip` : FreegeoipGeocoder. Supports IP geocoding
 * `datasciencetoolkit` : DataScienceToolkitGeocoder. Supports IPv4 geocoding and address geocoding. Use `extra.host` to specify a local instance
-* `openstreetmap` : OpenStreetMapGeocoder. Supports address geocoding and reverse geocoding. You can use `extra.language` and `extra.email` to specify a language and a contact email address.
-  * For `geocode`, you can use an object as value, specifying one or several parameters from https://wiki.openstreetmap.org/wiki/Nominatim#Parameters
-  * For `reverse`, you can use additional parameters from https://wiki.openstreetmap.org/wiki/Nominatim#Parameters_2
+* `openstreetmap` : OpenStreetMapGeocoder. Supports address geocoding and reverse geocoding
 * `mapquest` : MapQuestGeocoder. Supports address geocoding and reverse geocoding. Needs an apiKey
 * `openmapquest` : Open MapQuestGeocoder (based on OpenStreetMapGeocoder). Supports address geocoding and reverse geocoding. Needs an apiKey
 * `agol` : ArcGis Online Geocoding service. Supports geocoding and reverse. Requires a client_id & client_secret and 'https' http adapter
 * `tomtom`: TomTomGeocoder. Supports address geocoding. You need to specify `extra.apiKey`
-* `nominatimmapquest`: Same geocoder as `openstreetmap`, but queries the MapQuest servers.
+* `nominatimmapquest`: OpenStreetMap Nominatim geocoder. Support address and reverse geocoding
 * `opencage`: OpenCage Geocoder. Uses multiple open sources. Supports address and reverse geocoding. You need to specify `extra.apiKey`
 * `smartyStreet`: Smarty street geocoder (US only), you need to specify `extra.auth_id` and `extra.auth_token`
 
@@ -137,8 +135,8 @@ You can add new geocoders by implementing the two methods `geocode` and `reverse
 
 ```javascript
 var geocoder = {
-    geocode: function(value, callback) { ... },
-    reverse: function(query, callback) { var lat = query.lat; var lon = query.lon; ... }
+    geocode: function(value, callback) { },
+    reverse: function(lat, lng, callback) { }
 }
 ```
 
