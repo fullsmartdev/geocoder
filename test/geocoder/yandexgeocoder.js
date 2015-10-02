@@ -9,7 +9,7 @@ var mockedHttpAdapter = {
     get: function() {}
 };
 
-describe('YandexGeocoder', function() {
+describe('OpenCageGeocoder', function() {
 
   describe('#constructor' , function() {
     it('an http adapter must be set', function() {
