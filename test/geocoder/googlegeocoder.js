@@ -153,8 +153,7 @@
                             {types: ['postal_code'], long_name: '75008' },
                             {types: ['route'], long_name: 'Champs-Élysées' },
                             {types: ['street_number'], long_name: '1' },
-                            {types: ['administrative_area_level_1'], long_name: 'Île-de-France', short_name: 'IDF'},
-                            {types: ['sublocality_level_1', 'sublocality', 'political'], long_name: 'neighborhood'}
+                            {types: ['administrative_area_level_1'], long_name: 'Île-de-France', short_name: 'IDF'}
                         ],
                         country_code: 'US',
                         country_name: 'United States',
@@ -182,7 +181,7 @@
                           "confidence": 0,
                           "premise": null,
                           "subpremise": null,
-                          "neighborhood": 'neighborhood',
+                          "neighborhood": null,
                           "establishment": null,
                           "googlePlaceId": null
                         },
@@ -200,8 +199,7 @@
                             {types: ['postal_code'], long_name: '75008' },
                             {types: ['route'], long_name: 'Champs-Élysées' },
                             {types: ['street_number'], long_name: '1' },
-                            {types: ['administrative_area_level_1'], long_name: 'Île-de-France', short_name: 'IDF'},
-                            {types: ['sublocality_level_1', 'sublocality', 'political'], long_name: 'neighborhood'}
+                            {types: ['administrative_area_level_1'], long_name: 'Île-de-France', short_name: 'IDF'}
                         ],
                         country_code: 'US',
                         country_name: 'United States',
