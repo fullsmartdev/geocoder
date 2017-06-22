@@ -219,7 +219,3 @@
 ## 3.16.0
 
 * supports result_type and location_type for google geocoder
-
-## 3.17.0
-
-* supports mapzen
