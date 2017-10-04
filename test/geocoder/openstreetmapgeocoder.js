@@ -10,16 +10,16 @@
         get: function() {}
     };
 
-    describe('OpenStreetMapGeocoder', () => {
+    describe('OpenStreetMapGeocoder', function() {
 
-        describe('#constructor' , () => {
+        describe('#constructor' , function() {
 
-            test('an http adapter must be set', () => {
+            it('an http adapter must be set', function() {
 
                 expect(function() {new OpenStreetMapGeocoder();}).to.throw(Error, 'OpenStreetMapGeocoder need an httpAdapter');
             });
 
-            test('Should be an instance of OpenStreetMapGeocoder', () => {
+            it('Should be an instance of OpenStreetMapGeocoder', function() {
 
                 var osmAdapter = new OpenStreetMapGeocoder(mockedHttpAdapter);
 
@@ -28,9 +28,9 @@
 
         });
 
-        describe('#geocode' , () => {
+        describe('#geocode' , function() {
 
-            test('Should not accept IPv4', () => {
+            it('Should not accept IPv4', function() {
 
                 var osmAdapter = new OpenStreetMapGeocoder(mockedHttpAdapter);
 
@@ -40,7 +40,7 @@
 
             });
 
-            test('Should not accept IPv6', () => {
+            it('Should not accept IPv6', function() {
 
                 var osmAdapter = new OpenStreetMapGeocoder(mockedHttpAdapter);
 
@@ -50,7 +50,7 @@
 
             });
 
-            test('Should call httpAdapter get method', () => {
+            it('Should call httpAdapter get method', function() {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().returns({then: function() {}});
@@ -63,7 +63,7 @@
 
             });
 
-            test('Should return geocoded address', done => {
+            it('Should return geocoded address', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, [{
                         "place_id": "73723099",
@@ -144,7 +144,7 @@
                 });
             });
 
-            test('Should return geocoded address when quried with object', done => {
+            it('Should return geocoded address when quried with object', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, [{
                         "place_id": "7677374",
@@ -205,7 +205,7 @@
                 });
             });
 
-            test('Should ignore format and addressdetails arguments', done => {
+            it('Should ignore format and addressdetails arguments', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, [])
                 .withArgs('http://nominatim.openstreetmap.org/search', {
@@ -222,8 +222,8 @@
             });
         });
 
-        describe('#reverse' , () => {
-            test('Should return geocoded address', done => {
+        describe('#reverse' , function() {
+            it('Should return geocoded address', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, {
                         "place_id": "119109484",
@@ -288,7 +288,7 @@
                 });
             });
 
-            test('Should correctly set extra arguments', done => {
+            it('Should correctly set extra arguments', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, [])
                 .withArgs('http://nominatim.openstreetmap.org/reverse', {
@@ -306,28 +306,25 @@
                 });
             });
 
-            test(
-                'Should correctly set extra arguments from constructor extras',
-                done => {
-                    var mock = sinon.mock(mockedHttpAdapter);
-                    mock.expects('get').once().callsArgWith(2, false, [])
-                    .withArgs('http://nominatim.openstreetmap.org/reverse', {
-                      format: 'json',
-                      addressdetails: 1,
-                      lat:12,
-                      lon:7,
-                      zoom:9
-                    });
+            it('Should correctly set extra arguments from constructor extras', function(done) {
+                var mock = sinon.mock(mockedHttpAdapter);
+                mock.expects('get').once().callsArgWith(2, false, [])
+                .withArgs('http://nominatim.openstreetmap.org/reverse', {
+                  format: 'json',
+                  addressdetails: 1,
+                  lat:12,
+                  lon:7,
+                  zoom:9
+                });
 
-                    var osmAdapter = new OpenStreetMapGeocoder(mockedHttpAdapter,{zoom:9});
-                    osmAdapter.reverse({lat:12,lon:7}, function(err, results) {
-                        mock.verify();
-                        done();
-                    });
-                }
-            );
+                var osmAdapter = new OpenStreetMapGeocoder(mockedHttpAdapter,{zoom:9});
+                osmAdapter.reverse({lat:12,lon:7}, function(err, results) {
+                    mock.verify();
+                    done();
+                });
+            });
 
-            test('Should ignore format and addressdetails arguments', done => {
+            it('Should ignore format and addressdetails arguments', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, [])
                 .withArgs('http://nominatim.openstreetmap.org/reverse', {

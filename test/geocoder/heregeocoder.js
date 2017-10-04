@@ -16,31 +16,28 @@
         }
     };
 
-    describe('HereGeocoder', () => {
+    describe('HereGeocoder', function() {
 
-        describe('#constructor' , () => {
-            test('an http adapter must be set', () => {
+        describe('#constructor' , function() {
+            it('an http adapter must be set', function() {
                 expect(function() {new HereGeocoder();}).to.throw(Error, 'HereGeocoder need an httpAdapter');
             });
 
-            test('requires appId and appCode to be specified', () => {
+            it('requires appId and appCode to be specified', function() {
                 expect(function() {new HereGeocoder(mockedHttpAdapter, {});}).to.throw(Error, 'You must specify appId and appCode to use Here Geocoder');
                 expect(function() {new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID'});}).to.throw(Error, 'You must specify appId and appCode to use Here Geocoder');
                 expect(function() {new HereGeocoder(mockedHttpAdapter, {appCode: 'APP_CODE'});}).to.throw(Error, 'You must specify appId and appCode to use Here Geocoder');
             });
 
-            test(
-                'Should be an instance of HereGeocoder if an http adapter, appId, and appCode are provided',
-                () => {
-                    var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE'});
+            it('Should be an instance of HereGeocoder if an http adapter, appId, and appCode are provided', function() {
+                var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE'});
 
-                    hereAdapter.should.be.instanceof(HereGeocoder);
-                }
-            );
+                hereAdapter.should.be.instanceof(HereGeocoder);
+            });
         });
 
-        describe('#geocode' , () => {
-            test('Should not accept IPv4', () => {
+        describe('#geocode' , function() {
+            it('Should not accept IPv4', function() {
 
                 var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE'});
 
@@ -50,7 +47,7 @@
 
             });
 
-            test('Should not accept IPv6', () => {
+            it('Should not accept IPv6', function() {
 
                 var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE'});
 
@@ -60,7 +57,7 @@
 
             });
 
-            test('Should call httpAdapter get method', () => {
+            it('Should call httpAdapter get method', function() {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
                     searchtext: "1 champs élysée Paris",
@@ -77,70 +74,61 @@
                 mock.verify();
             });
 
-            test(
-                'Should call httpAdapter get method with language if specified',
-                () => {
-                    var mock = sinon.mock(mockedHttpAdapter);
-                    mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
-                        searchtext: "1 champs élysée Paris",
-                        language: "en",
-                        app_code: "APP_CODE",
-                        app_id: "APP_ID",
-                        additionaldata: "Country2,true",
-                        gen: 8
-                    }).once().returns({then: function() {}});
+            it('Should call httpAdapter get method with language if specified', function() {
+                var mock = sinon.mock(mockedHttpAdapter);
+                mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
+                    searchtext: "1 champs élysée Paris",
+                    language: "en",
+                    app_code: "APP_CODE",
+                    app_id: "APP_ID",
+                    additionaldata: "Country2,true",
+                    gen: 8
+                }).once().returns({then: function() {}});
 
-                    var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', language: 'en'});
+                var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', language: 'en'});
 
-                    hereAdapter.geocode('1 champs élysée Paris');
+                hereAdapter.geocode('1 champs élysée Paris');
 
-                    mock.verify();
-                }
-            );
+                mock.verify();
+            });
 
-            test(
-                'Should call httpAdapter get method with politicalView if specified',
-                () => {
-                    var mock = sinon.mock(mockedHttpAdapter);
-                    mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
-                        searchtext: "1 champs élysée Paris",
-                        politicalview: "GRE",
-                        app_code: "APP_CODE",
-                        app_id: "APP_ID",
-                        additionaldata: "Country2,true",
-                        gen: 8
-                    }).once().returns({then: function() {}});
+            it('Should call httpAdapter get method with politicalView if specified', function() {
+                var mock = sinon.mock(mockedHttpAdapter);
+                mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
+                    searchtext: "1 champs élysée Paris",
+                    politicalview: "GRE",
+                    app_code: "APP_CODE",
+                    app_id: "APP_ID",
+                    additionaldata: "Country2,true",
+                    gen: 8
+                }).once().returns({then: function() {}});
 
-                    var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', politicalView: 'GRE'});
+                var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', politicalView: 'GRE'});
 
-                    hereAdapter.geocode('1 champs élysée Paris');
+                hereAdapter.geocode('1 champs élysée Paris');
 
-                    mock.verify();
-                }
-            );
+                mock.verify();
+            });
 
-            test(
-                'Should call httpAdapter get method with country if specified',
-                () => {
-                    var mock = sinon.mock(mockedHttpAdapter);
-                    mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
-                        searchtext: "1 champs élysée Paris",
-                        country: "FR",
-                        app_code: "APP_CODE",
-                        app_id: "APP_ID",
-                        additionaldata: "Country2,true",
-                        gen: 8
-                    }).once().returns({then: function() {}});
+            it('Should call httpAdapter get method with country if specified', function() {
+                var mock = sinon.mock(mockedHttpAdapter);
+                mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
+                    searchtext: "1 champs élysée Paris",
+                    country: "FR",
+                    app_code: "APP_CODE",
+                    app_id: "APP_ID",
+                    additionaldata: "Country2,true",
+                    gen: 8
+                }).once().returns({then: function() {}});
 
-                    var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', country: 'FR'});
+                var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', country: 'FR'});
 
-                    hereAdapter.geocode('1 champs élysée Paris');
+                hereAdapter.geocode('1 champs élysée Paris');
 
-                    mock.verify();
-                }
-            );
+                mock.verify();
+            });
 
-            test('Should call httpAdapter get method with state if specified', () => {
+            it('Should call httpAdapter get method with state if specified', function() {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
                     searchtext: "1 champs élysée Paris",
@@ -158,57 +146,51 @@
                 mock.verify();
             });
 
-            test(
-                'Should call httpAdapter get method with components if called with object',
-                () => {
-                    var mock = sinon.mock(mockedHttpAdapter);
-                    mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
-                        searchtext: "1 champs élysée Paris",
-                        country: "FR",
-                        postalcode: "75008",
-                        app_code: "APP_CODE",
-                        app_id: "APP_ID",
-                        additionaldata: "Country2,true",
-                        gen: 8
-                    }).once().returns({then: function() {}});
+            it('Should call httpAdapter get method with components if called with object', function() {
+                var mock = sinon.mock(mockedHttpAdapter);
+                mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
+                    searchtext: "1 champs élysée Paris",
+                    country: "FR",
+                    postalcode: "75008",
+                    app_code: "APP_CODE",
+                    app_id: "APP_ID",
+                    additionaldata: "Country2,true",
+                    gen: 8
+                }).once().returns({then: function() {}});
 
-                    var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE'});
+                var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE'});
 
-                    hereAdapter.geocode({
-                        address: '1 champs élysée Paris',
-                        zipcode: '75008',
-                        country: 'FR'
-                    });
+                hereAdapter.geocode({
+                    address: '1 champs élysée Paris',
+                    zipcode: '75008',
+                    country: 'FR'
+                });
 
-                    mock.verify();
-                }
-            );
+                mock.verify();
+            });
 
-            test(
-                'Should call httpAdapter get method without default state if called with object containing country',
-                () => {
-                    var mock = sinon.mock(mockedHttpAdapter);
-                    mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
-                        searchtext: "Kaiserswerther Str 10, Berlin",
-                        country: "DE",
-                        app_code: "APP_CODE",
-                        app_id: "APP_ID",
-                        additionaldata: "Country2,true",
-                        gen: 8
-                    }).once().returns({then: function() {}});
+            it('Should call httpAdapter get method without default state if called with object containing country', function() {
+                var mock = sinon.mock(mockedHttpAdapter);
+                mock.expects('get').withArgs('https://geocoder.cit.api.here.com/6.2/geocode.json', {
+                    searchtext: "Kaiserswerther Str 10, Berlin",
+                    country: "DE",
+                    app_code: "APP_CODE",
+                    app_id: "APP_ID",
+                    additionaldata: "Country2,true",
+                    gen: 8
+                }).once().returns({then: function() {}});
 
-                    var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', country: 'FR', state: 'Île-de-France' });
+                var hereAdapter = new HereGeocoder(mockedHttpAdapter, {appId: 'APP_ID', appCode: 'APP_CODE', country: 'FR', state: 'Île-de-France' });
 
-                    hereAdapter.geocode({
-                        address: 'Kaiserswerther Str 10, Berlin',
-                        country: 'DE'
-                    });
+                hereAdapter.geocode({
+                    address: 'Kaiserswerther Str 10, Berlin',
+                    country: 'DE'
+                });
 
-                    mock.verify();
-                }
-            );
+                mock.verify();
+            });
 
-            test('Should return geocoded address', done => {
+            it('Should return geocoded address', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, { Response:
                    { MetaInfo: { Timestamp: '2015-08-21T07:53:51.042+0000' },
@@ -320,7 +302,7 @@
                 });
             });
 
-            test('Should handle a not "OK" status', done => {
+            it('Should handle a not "OK" status', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, new Error('Response status code is 401'), {
                     details: 'invalid credentials for APP_ID',
@@ -346,7 +328,7 @@
                 });
             });
 
-            test('Should handle an empty response', done => {
+            it('Should handle an empty response', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, { Response:
                        { MetaInfo: { Timestamp: '2015-08-21T07:53:52.120+0000' },
@@ -378,8 +360,8 @@
 
         });
 
-        describe('#reverse' , () => {
-            test('Should call httpAdapter get method', () => {
+        describe('#reverse' , function() {
+            it('Should call httpAdapter get method', function() {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().returns({then: function() {}});
@@ -392,7 +374,7 @@
 
             });
 
-            test('Should return geocoded address', done => {
+            it('Should return geocoded address', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, { Response:
                    { MetaInfo: { Timestamp: '2015-08-21T08:06:54.108+0000' },
@@ -535,7 +517,7 @@
                 });
             });
 
-            test('Should handle a not "OK" status', done => {
+            it('Should handle a not "OK" status', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, new Error('Response status code is 401'), {
                     details: 'invalid credentials for APP_ID',
@@ -561,7 +543,7 @@
                 });
             });
 
-            test('Should handle an empty response', done => {
+            it('Should handle an empty response', function(done) {
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, { Response:
                        { MetaInfo: { Timestamp: '2015-08-21T07:54:07.908+0000' },

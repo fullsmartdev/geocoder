@@ -1,12 +1,12 @@
 'use strict';
 var chai = require('chai');
-var should = chai.should();
+var expect = chai.expect;
 
 var GpxFormatter = require('../../lib/formatter/gpxformatter.js');
 
-describe('GpxFormatter', () => {
-  describe('#format' , () => {
-    test('should format using gpx format', () => {
+describe('GpxFormatter', function() {
+  describe('#format' , function() {
+    it('should format using gpx format', function() {
       var formatter = new GpxFormatter();
 
       var results = formatter.format([{

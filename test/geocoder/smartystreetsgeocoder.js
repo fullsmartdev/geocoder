@@ -11,21 +11,21 @@
         get: function() {}
     };
 
-    describe('SmartyStreets', () => {
+    describe('SmartyStreets', function() {
 
-        describe('#constructor' , () => {
+        describe('#constructor' , function() {
 
-            test('an http adapter must be set', () => {
+            it('an http adapter must be set', function() {
 
                 expect(function() {new SmartyStreets();}).to.throw(Error, 'SmartyStreets need an httpAdapter');
             });
 
-            test('an auth-id and auth-token must be set', () => {
+            it('an auth-id and auth-token must be set', function() {
 
                 expect(function() {new SmartyStreets(mockedHttpAdapter);}).to.throw(Error, 'You must specify an auth-id and auth-token!');
             });
 
-            test('Should be an instance of SmartyStreets', () => {
+            it('Should be an instance of SmartyStreets', function() {
 
                 var smartyStreetsAdapter = new SmartyStreets(mockedHttpAdapter, 'AUTH_ID', 'AUTH_TOKEN');
 
@@ -34,9 +34,9 @@
 
         });
 
-        describe('#geocode' , () => {
+        describe('#geocode' , function() {
 
-            test('Should call httpAdapter get method', () => {
+            it('Should call httpAdapter get method', function(){
               var mock = sinon.mock(mockedHttpAdapter);
               mock.expects('get').withArgs('https://api.smartystreets.com/street-address', {
                 "street": "1 Infinite Loop, Cupertino, CA",
@@ -52,8 +52,8 @@
             });
         });
 
-        describe('#reverse' , () => {
-            test('Should throw expection', () => {
+        describe('#reverse' , function() {
+            it('Should throw expection', function() {
               var smartyStreetsAdapter = new SmartyStreets(mockedHttpAdapter, 'AUTH_ID', 'AUTH_TOKEN');
 
                 expect(function() {

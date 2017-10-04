@@ -10,16 +10,16 @@
         get: function() {}
     };
 
-    describe('DataScienceToolkitGeocoder', () => {
+    describe('DataScienceToolkitGeocoder', function() {
 
-        describe('#constructor' , () => {
+        describe('#constructor' , function() {
 
-            test('an http adapter must be set', () => {
+            it('an http adapter must be set', function() {
 
                 expect(function() {new DataScienceToolkitGeocoder();}).to.throw(Error, 'DataScienceToolkitGeocoder need an httpAdapter');
             });
 
-            test('Should be an instance of DataScienceToolkitGeocoder', () => {
+            it('Should be an instance of DataScienceToolkitGeocoder', function() {
 
                 var geocoder = new DataScienceToolkitGeocoder(mockedHttpAdapter);
 
@@ -28,9 +28,9 @@
 
         });
 
-        describe('#geocode' , () => {
+        describe('#geocode' , function() {
 
-            test('Should call httpAdapter get method', () => {
+            it('Should call httpAdapter get method', function() {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().returns({then: function() {}});
@@ -42,7 +42,7 @@
                 mock.verify();
             });
 
-            test('Should call httpAdapter get method with specified host', () => {
+            it('Should call httpAdapter get method with specified host', function() {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').withArgs('http://raoul.io/ip2coordinates/127.0.0.1', {}).once().returns({then: function() {}});
@@ -54,7 +54,7 @@
                 mock.verify();
             });
 
-            test('Should return a geocoded address', done => {
+            it('Should return a geocoded address', function(done) {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, {
@@ -93,7 +93,7 @@
 
             });
 
-            test('Should return a geocoded address', done => {
+            it('Should return a geocoded address', function(done) {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, {
@@ -134,7 +134,7 @@
 
             });
 
-            test('Should error for no result', done => {
+            it('Should error for no result', function(done) {
 
                 var mock = sinon.mock(mockedHttpAdapter);
                 mock.expects('get').once().callsArgWith(2, false, {
@@ -152,8 +152,8 @@
             });
         });
 
-        describe('#reverse' , () => {
-            test('Should throw an error', () => {
+        describe('#reverse' , function() {
+            it('Should throw an error', function() {
                 var geocoder = new DataScienceToolkitGeocoder(mockedHttpAdapter);
                 expect(function() {geocoder.reverse(10.0235,-2.3662);})
                     .to
