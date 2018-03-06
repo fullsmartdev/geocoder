@@ -14,7 +14,7 @@ describe('StringFormatter', () => {
   });
   describe('#format' , () => {
     test('should replace pattern with correct values', () => {
-      var formatter = new StringFormatter('%P %p %n %S %z %T %t %c');
+      var formatter = new StringFormatter('%P %p %n %S %z %T %t');
 
       var results = formatter.format([{
         country: 'France',
@@ -23,15 +23,14 @@ describe('StringFormatter', () => {
         streetName: 'rue chevreul',
         zipcode: '69007',
         state: 'Rhone alpes',
-        stateCode: 'RA',
-        city: 'Lyon',
+        stateCode: 'RA'
       }]);
 
       results.should.have.length(1);
       var string = results[0];
 
       string.should.be.a('string');
-      string.should.equal('France FR 29 rue chevreul 69007 Rhone alpes RA Lyon');
+      string.should.equal('France FR 29 rue chevreul 69007 Rhone alpes RA');
     });
   });
 });
